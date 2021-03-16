@@ -1,0 +1,89 @@
+<html>
+	<font size="8" color="green">Palak Lab 2 Assignment</font><br><br>
+	Number of rows: <input type="text" id="t1" /><br><br>
+	Number of cols: <input type="text" id="t2" /><br><br>
+	
+	<button id="b1" onclick="generateTable()">Generate Table</button><br><br>
+	
+	<button id="b2" onclick="addColumn()">Add Column</button>
+	
+	<button id="b3" onclick="addRow()">Add Row</button>
+		
+	<script language="javascript">
+		
+		let numberOfRows = document.getElementById("t1");
+		let numberOfCols = document.getElementById("t2");
+		let generateTableBtn = document.getElementById("b1");
+		let addColumnBtn = document.getElementById("b2");
+		let addRowBtn = document.getElementById("b3");
+		let fontTag = document.getElementsByTagName("font");
+		let inputTag = document.getElementsByTagName("input");
+		let bodyTag = document.body;
+		let tableTag = document.createElement('table');
+		let tblBody = document.createElement('tbody');
+		let htmlTag = document.getElementsByTagName('html')
+		let rowValue
+		let colsValue
+	
+		function generateTable(){
+
+		  if(numberOfCols.value == 0 || numberOfRows.value == 0){
+					alert("Please insert valid number of rows and columns")
+					}else{
+						rowValue = parseInt(numberOfRows.value)
+						colsValue = parseInt(numberOfCols.value)
+  						tableTag.border = '1';
+						tableTag.style.marginLeft = "auto"
+						tableTag.style.marginRight = "auto"
+
+  						tableTag.appendChild(tblBody);
+
+  					for (var i = 0; i < numberOfRows.value; i++) {
+    					let tableRow = document.createElement('tr');
+    					tblBody.appendChild(tableRow);
+
+    				for (var j = 0; j < numberOfCols.value; j++) {
+      					let tableData = document.createElement('td');
+      			
+      					tableData.appendChild(document.createTextNode("row[" + i + "] col[" + j + "]"));
+      					tableRow.appendChild(tableData);
+   					 }
+  				}
+ 			 	bodyTag.appendChild(tableTag);
+				
+				 	 fontTag[0].style.display = "none";
+				 	 inputTag[0].style.display = "none";
+				 	 inputTag[1].style.display = "none";
+				 	 generateTableBtn.style.display = "none";		
+				 	 htmlTag[0].style.fontSize = "0"		  
+			}
+		};
+		
+
+		function addColumn(){
+		
+					var tblBodyObj = tableTag.tBodies[0];
+				for (var i=0; i<tblBodyObj.rows.length; i++) {
+					var newCell = tblBodyObj.rows[i].insertCell(-1);
+					newCell.innerHTML = "row[" + i + "] col[" + (tblBodyObj.rows[i].cells.length - 1) + "]"
+					}
+						colsValue = colsValue + 1
+			};
+
+		
+		function addRow(){
+			
+					let newRow = tableTag.insertRow(-1);
+					let tblBodyObj = tableTag.tBodies[0];
+				for(let i=colsValue-1; i>=0; i--){
+					let newCell = newRow.insertCell(0);
+
+					let newText = document.createTextNode("row[" + (tblBodyObj.rows.length-1) + "] col[" + i + "]");
+					newCell.appendChild(newText);
+				}
+
+		};
+
+	</script>
+	
+</html>
